@@ -1,47 +1,77 @@
-# Sistema de Gestión de Cursos para Docentes
+# Proyecto de Ejemplo con Nest.js
 
-```mermaid
-graph TD;
-  A[Evaluación] --> B[Configuración del Proyecto]
-  B --> C[Desarrollo del Backend]
-  C --> D[Implementación de Seguridad]
-  D --> E[Pruebas Unitarias con Jest en Backend]
-  E --> F[Entregable]
-  C --> G[Gestión de Cursos]
-  C --> H[Gestión de Temas]
-  G --> I[Operaciones CRUD]
-  H --> I
-  I --> J[Controlador y Servicio]
-  H --> K[Relación entre Cursos y Temas]
-  C --> L[Integración con Backend]
-  L --> D
-  D --> M[Repositorio de GitHub]
-  D --> N[Documentación detallada]
-  D --> O[Capturas de pantalla o vdeos demostrativos]
-  N --> P[Configuración y ejecución del proyecto]
+Este es un proyecto de ejemplo creado con Nest.js que incluye la funcionalidad básica de autenticación de usuarios, publicación de cursos y temas asociados a dichos cursos.
+
+## Instalación
+
+Antes de comenzar, asegúrate de tener [Node.js](https://nodejs.org/) y [npm](https://www.npmjs.com/) instalados en tu máquina.
+
+```bash
+npm install -g @nestjs/cli
+git clone https://github.com/tu_usuario/nestjs-example.git
+cd nestjs-example
+npm install
 ```
-## Evaluación
 
-Se evalúa la necesidad de desarrollar un sistema de gestión de cursos para docentes.
+## Iniciar la Aplicación
 
-## Configuración del Proyecto
+Para ejecutar la aplicación en modo de desarrollo, utiliza el siguiente comando:
 
-Se utiliza Nest.js para configurar el backend y se establece una base de datos MongoDB para almacenar la información de los cursos y los temas.
+```bash
+npm run start:dev
+```
 
-## Desarrollo del Backend
+Esto iniciará el servidor en http://localhost:3000.
 
-Se crea un módulo para la gestión de los cursos, con operaciones CRUD, así como un controlador y un servicio para la lógica de negocio relacionada. Se desarrolla también un módulo para la gestión de los temas de los cursos, estableciendo la relación entre cursos y temas.
+## Autenticación
 
-## Implementación de Seguridad
+Abre Postman y crea una solicitud POST a http://localhost:3000/auth/login con el siguiente cuerpo en formato JSON:
 
-Se implementan medidas de seguridad en el backend para proteger las rutas y acciones del sistema, utilizando técnicas como la autenticación basada en tokens JWT.
+```bash
+{
+  "username": "tu_usuario",
+  "password": "tu_contraseña"
+}
+```
 
-## Pruebas Unitarias con Jest en Backend
+Esta solicitud generará un token que necesitarás para autenticar otras solicitudes.
 
-Se escriben pruebas unitarias para verificar el correcto funcionamiento de los controladores y servicios del backend, utilizando Jest como framework de pruebas.
+## Crear Cursos
 
-## Entregable
+Crea una solicitud POST a http://localhost:3000/courses para ingresar un curso se debe ingresar con el siguiente cuerpo en formato JSON:
 
-Se entrega un repositorio de GitHub con el código fuente del proyecto, documentación detallada sobre la configuración y ejecución del proyecto, y capturas de pantalla o vídeos demostrativos que muestren el sistema en funcionamiento.
+```bash
+ {
+    "id": "ea009ccb-f92a-4c40-86fc-75259895ec82",
+    "course": "Matematicas",
+    "content": "Matematicas avanzadas"
+}
 
-Para visualizar y probar la generación del sistema backend, así como su consumo desde un Frontend, puedes utilizar herramientas como Thunder Client, Postman, Insomnia o RapidApiClient. Estas herramientas permiten realizar solicitudes HTTP a los endpoints del backend, lo que facilita la visualización de los datos y el funcionamiento del sistema en tiempo real.
+```
+
+## Obtener y Listar Cursos
+
+Crea una solicitud GET a http://localhost:3000/courses para obtener todos los cursos. Asegúrate de incluir el token de autenticación en los encabezados.
+
+## Comentarios en Temas
+
+Crea una solicitud POST a http://localhost:3000/courses/"courseId"/topics (puedes cambiar el "courseId" según el post al que quieras agregar un tema) con el siguiente cuerpo en formato JSON:
+
+```bash
+{
+  "id": "123",
+  "topicId": "456",
+  "teacher": "Profe",
+  "subject": "Matematicas avanzadas"
+}
+```
+
+## Obtener y Listar Temas
+
+Para ver los temas asociados a un curso, realiza una solicitud GET a http://localhost:3000/courses/"courseId"/topics (nuevamente, ajusta el número según el curso deseado).
+
+## Pruebas
+
+Ingresar el comando "npm test -- --config=jest.config.js" para realizar las pruebas en la raiz del proyecto.
+
+Espero que esta estructura sea clara y que encuentres útil y fácil de entender este proyecto de ejemplo. ¡Disfruta explorando Nest.js!
